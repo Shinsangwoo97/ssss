@@ -4,7 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline Service</title>
+    <title>항해 99 7기신상우 개인과제</title>
+
+    <meta property="og:title" content="항해99 신상우7기">
+    <meta property="og:description" content="과제를 확인해보세요">
+    <meta property="og:image" content="images/og_selectshop.png">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
@@ -122,6 +126,14 @@
             border-radius: 5px;
             background-color: #ffffff;
             margin-bottom: 12px;
+
+        }
+        .cards{
+            width: 538px;
+            border-radius: 5px;
+            background-color: #ffffff;
+            margin-bottom: 12px;
+            display: none;
         }
 
         .card .metadata {
@@ -208,6 +220,7 @@
     <script>
         // 미리 작성된 영역 - 수정하지 않으셔도 됩니다.
         // 사용자가 내용을 올바르게 입력하였는지 확인합니다.
+
         function isValidContents(contents) {
             if (contents == '') {
                 alert('내용을 입력해주세요');
@@ -219,12 +232,13 @@
             }
             return true;
         }
-        function reviseContents(contents){
-            if(contents == ''){
+
+        function reviseContents(contents) {
+            if (contents == '') {
                 alert('내용을 변경해주세요');
                 return false;
             }
-            if(password == ''){
+            if (password == '') {
                 alert('비밀번호를 확인해주세요');
                 return false;
             }
@@ -245,13 +259,15 @@
 
         // 수정 버튼을 눌렀을 때, 기존 작성 내용을 textarea 에 전달합니다.
         // 숨길 버튼을 숨기고, 나타낼 버튼을 나타냅니다.
-        function editPost(id) {
-            showEdits(id);
-            let contents = $(`#${id}-contents`).text().trim();
-            $(`#${id}-textarea`).val(contents);
+
+        function showpost(id){
+            $(`#${id}-cards`).show();
+        }
+        function backPost(id){
+            $(`#${id}-cards`).hide();
         }
 
-        function showEdits(id) {
+        function editPost(id) {
             $(`#${id}-editarea`).show();
             $(`#${id}-submit`).show();
             $(`#${id}-delete`).show();
@@ -268,6 +284,7 @@
             $(`#${id}-contents`).show();
             $(`#${id}-edit`).show();
         }
+
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // 여기서부터 코드를 작성해주시면 됩니다.
 
@@ -285,7 +302,7 @@
                 type: 'GET',
                 url: '/api/memos',
                 success: function (response) {
-                    for (let i=0; i<response.length; i++){
+                    for (let i = 0; i < response.length; i++) {
                         let memo = response[i];
                         let id = memo.id;
                         let name = memo.name;
@@ -302,7 +319,18 @@
         // 메모 하나를 HTML로 만들어서 body 태그 내 원하는 곳에 붙입니다.
         function addHTML(id, name, contents, title, modifiedAt) {
             // 1. HTML 태그를 만듭니다.
-            let tempHtml = `<div class="card">
+            let tempHtml = `<div>
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h3 class="card-title">${title}</h3>
+                                        <h7 id="${id}-name" class="card-title">${name}</h7>
+                                        <p class="card-text">${modifiedAt}</p>
+                                        <button id="${id}-show" onclick="showpost('${id}')" class="btn btn-primary">내용보기</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div id="${id}-cards" class="cards">
                                 <!-- date/username 영역 -->
                                 <div><h2>${title}</h2></div>
                                 <div class="date">
@@ -313,23 +341,26 @@
                                     </div>
                                 <div class="metadata">
                                 </div>
-                                <!-- contents 조회/수정 영역-->
+
                                 <div class="contents">
                                     <div id="${id}-contents" class="text">
                                         ${contents}
                                     </div>
+                                    <!-- contents 조회/수정 영역-->
                                     <div id="${id}-editarea" class="edit">
                                         <textarea id="${id}-textarea" class="te-edit" name="" id="" cols="30" rows="5"></textarea>
-                                          비밀번호:<input id="${id}"></inputid>
+                                          비밀번호:<input id="${id}-password"></inputid>
                                     </div>
                                 </div>
                                 <!-- 버튼 영역-->
                                 <div class="footer">
+                                    <button id="${id}-back" onclick="backPost('${id}')" class="icon-back-edit" >닫기</button>
                                     <img id="${id}-edit" onclick="editPost('${id}')" class="icon-start-edit" src="images/edit.png" alt="">
                                     <img id="${id}-delete" onclick="deleteOne('${id}')" class="icon-delete" src="images/delete.png" alt="">
                                     <img id="${id}-submit" onclick="submitEdit('${id}')" class="icon-end-edit" src="images/done.png" alt="">
                                 </div>
-                            </div>`
+                            </div>
+                            `
             // 2. #cards-box 에 HTML을 붙인다.
             $('#cards-box').append(tempHtml);
         }
@@ -347,7 +378,13 @@
                 return;
             }
             // 4. 전달할 data JSON으로 만듭니다.
-            let data = {'name': name, 'contents': contents, 'title': title, 'password':password, 'modifiedAt':modifiedAt};
+            let data = {
+                'name': name,
+                'contents': contents,
+                'title': title,
+                'password': password,
+                'modifiedAt': modifiedAt
+            };
             // 5. POST /api/memos 에 data를 전달합니다.
             $.ajax({
                 type: "POST",
@@ -375,38 +412,63 @@
             $.ajax({
                 type: "GET",
                 url: `/api/memos/${id}`,
-                // data: JSON.stringify(data),
-                contentType: 'application/json',
+                // data: JSON.stringify(data), //get 할떄 안쓰는거같음
+                // contentType: 'application/json', //get 할떄 안쓰는거같음
                 success: function (response) {
                     console.log(response);
-                    if( response == checkpassword){
-                        alert('변경이 완료되었습니다.')
-                    }else{
-                        alert("비밀번호가 틀렸습니다.")
+                    if (response == checkpassword) {
+                        let data = {'contents': contents};
+                        $.ajax({
+                            type: "PUT",
+                            url: `/api/memos/${id}`,
+                            data: JSON.stringify(data),
+                            contentType: 'application/json',
+                            success: function (response) {
+                            }
+                        })
+                        alert('변경이 완료되었습니다.');
+                        window.location.reload();
+                    } else {
+                        alert("비밀번호가 틀렸습니다.");
                         return;
                     }
                 }
             })
-
             // 3. 전달할 data JSON으로 만듭니다.
-            let data = {'name': name, 'contents': contents};
+
             // 4. PUT /api/memos/{id} 에 data를 전달합니다.
-            $.ajax({
-                type: "PUT",
-                url: `/api/memos/${id}`,
-                data: JSON.stringify(data),
-                contentType: 'application/json',
-                success: function (response) {
-                    alert('변경이 완료되었습니다.')
-                    window.location.reload();
-                }
-            })
+
         }
 
         // 메모를 삭제합니다.
         function deleteOne(id) {
             // 1. DELETE /api/memos/{id} 에 요청해서 메모를 삭제합니다.
+            let checkpassword = $(`#${id}-password`).val();
+            $.ajax({
+                type: "GET",
+                url: `/api/memos/${id}`,
+                // data: JSON.stringify(data), //get 할떄 안쓰는거같음
+                // contentType: 'application/json', //get 할떄 안쓰는거같음
+                success: function (response) {
+                    console.log(response);
+                    if (response == checkpassword) {
+                        $.ajax({
+                            type: 'DELETE',
+                            url: `/api/memos/${id}`,
+                            success: function () {
+                                alert('삭제가 완료되었습니다.')
+                                window.location.reload();
+                            }
+                        })
+                    } else {
+                        alert("비밀번호가 틀렸습니다.");
+                        return;
+                    }
+                }
+            })
+
         }
+
     </script>
 </head>
 
@@ -426,7 +488,7 @@
         </p>
     </div>
     <div class="area-write">
-        <input  name="title" id="title">제목</input>
+        <input name="title" id="title">제목</input>
         <input name="name" id="name">이름</input><input name="password" id="password">비밀번호</input>
         <textarea class="field" placeholder="공유하고 싶은 소식을 입력해주세요" name="contents" id="contents" cols="30"
                   rows="10"></textarea>
