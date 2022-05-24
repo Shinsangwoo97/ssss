@@ -6,6 +6,7 @@ import com.aparta.homework3.domain.MemoRequestDto;
 import com.aparta.homework3.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,5 +39,13 @@ public class MemoController {
     public Long deleteMemo(@PathVariable Long id) {
         memoRepository.deleteById(id);
         return id;
+    }
+
+    @GetMapping("/api/memos/{id}")
+    public String checkMemo(@PathVariable Long id) {
+        Memo memo = memoRepository.findById(id).orElseThrow(
+                () -> new NullPointerException("아이디가 존재하지않습니다.")
+        );
+        return memo.getPassword();
     }
 }
