@@ -1,8 +1,8 @@
 package com.aparta.homework3.service;
 
 import com.aparta.homework3.domain.Memo;
-import com.aparta.homework3.domain.MemoRepository;
-import com.aparta.homework3.domain.MemoRequestDto;
+import com.aparta.homework3.repository.MemoRepository;
+import com.aparta.homework3.dto.MemoRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

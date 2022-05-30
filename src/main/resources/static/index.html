@@ -415,7 +415,6 @@
                 // data: JSON.stringify(data), //get 할떄 안쓰는거같음
                 // contentType: 'application/json', //get 할떄 안쓰는거같음
                 success: function (response) {
-                    console.log(response);
                     if (response == checkpassword) {
                         let data = {'contents': contents};
                         $.ajax({
@@ -481,6 +480,7 @@
 </div>
 <div class="wrap">
     <div class="header">
+        <button href="/login.html">로그인</button>
         <h2>Timeline Service</h2>
         <p>
             공유하고 싶은 소식을 입력해주세요.

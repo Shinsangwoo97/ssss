@@ -1,4 +1,4 @@
-package com.aparta.homework3.domain;
+package com.aparta.homework3.dto;
 
 import lombok.Getter;
 

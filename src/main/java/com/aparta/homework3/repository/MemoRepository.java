@@ -1,5 +1,6 @@
-package com.aparta.homework3.domain;
+package com.aparta.homework3.repository;
 
+import com.aparta.homework3.domain.Memo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

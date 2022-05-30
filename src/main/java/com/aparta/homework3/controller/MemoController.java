@@ -1,12 +1,11 @@
 package com.aparta.homework3.controller;
 
 import com.aparta.homework3.domain.Memo;
-import com.aparta.homework3.domain.MemoRepository;
-import com.aparta.homework3.domain.MemoRequestDto;
+import com.aparta.homework3.repository.MemoRepository;
+import com.aparta.homework3.dto.MemoRequestDto;
 import com.aparta.homework3.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +21,7 @@ public class MemoController {
         Memo memo = new Memo(requestDto);
         return memoRepository.save(memo);
     }
+
     @GetMapping("/api/memos")
     public List<Memo> readMemo() {
         LocalDateTime start = LocalDateTime.now().minusDays(1);

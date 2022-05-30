@@ -1,5 +1,6 @@
 package com.aparta.homework3.domain;
 
+import com.aparta.homework3.dto.MemoRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
