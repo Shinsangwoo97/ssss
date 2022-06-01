@@ -30,20 +30,20 @@ public class MemoController {
     }
 
     @PutMapping("/api/memos/{id}")
-    public Long updateMemo(@PathVariable Long id, @RequestBody MemoRequestDto requestDto) {
-        memoService.update(id,requestDto);
-        return id;
+    public Long updateMemo(@PathVariable Long memoId, @RequestBody MemoRequestDto requestDto) {
+        memoService.update(memoId,requestDto);
+        return memoId;
     }
 
-    @DeleteMapping("/api/memos/{id}")
-    public Long deleteMemo(@PathVariable Long id) {
-        memoRepository.deleteById(id);
-        return id;
+    @DeleteMapping("/api/memos/{memoId}")
+    public Long deleteMemo(@PathVariable Long memoId) {
+        memoRepository.deleteById(memoId);
+        return memoId;
     }
 
-    @GetMapping("/api/memos/{id}")
-    public String checkMemo(@PathVariable Long id) {
-        Memo memo = memoRepository.findById(id).orElseThrow(
+    @GetMapping("/api/memos/{memoId}")
+    public String checkMemo(@PathVariable Long memoId) {
+        Memo memo = memoRepository.findById(memoId).orElseThrow(
                 () -> new NullPointerException("아이디가 존재하지않습니다.")
         );
         return memo.getPassword();

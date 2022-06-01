@@ -15,11 +15,11 @@ public class MemoService {
     private final MemoRepository memoRepository;
 
     @Transactional
-    public Long update (Long id, MemoRequestDto requestDto){
-        Memo memo = memoRepository.findById(id).orElseThrow(
+    public Long update (Long memoId, MemoRequestDto requestDto){
+        Memo memo = memoRepository.findById(memoId).orElseThrow(
                 () -> new NullPointerException("아이디가 존재하지않습니다.")
         );
         memo.update(requestDto);
-        return id;
+        return memoId;
     }
 }
