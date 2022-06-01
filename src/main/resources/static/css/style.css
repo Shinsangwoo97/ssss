@@ -92,7 +92,11 @@ input#query {
     background-color: #e9ecef;
     border: none;
 
+<<<<<<< HEAD
     /*background-image: url('../images/icon-search.png');*/
+=======
+    background-image: url('../images/icon-search.png');
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 20px 20px;
@@ -105,7 +109,11 @@ input#query::placeholder {
 button {
     color: white;
     border-radius: 4px;
+<<<<<<< HEAD
     /*border-radius: none;*/
+=======
+    border-radius: none;
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
 }
 
 .popup-container {
@@ -579,7 +587,11 @@ button {
         background-color: #e9ecef;
         border: none;
 
+<<<<<<< HEAD
         /*background-image: url('../images/icon-search.png');*/
+=======
+        background-image: url('../images/icon-search.png');
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
         background-repeat: no-repeat;
         background-position: right 10px center;
         background-size: 20px 20px;
@@ -592,7 +604,11 @@ button {
     button {
         color: white;
         border-radius: 4px;
+<<<<<<< HEAD
         /*border-radius: none;*/
+=======
+        border-radius: none;
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
     }
 
     .popup-container {
@@ -765,7 +781,11 @@ button {
         background-color: #e9ecef;
         border: none;
 
+<<<<<<< HEAD
         /*background-image: url('images/kakao_login_medium_narrow.png');*/
+=======
+        background-image: url('images/kakao_login_medium_narrow.png');
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
         background-repeat: no-repeat;
         background-position: right 10px center;
         background-size: 20px 20px;

@@ -9,7 +9,10 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
 @Configuration
 @EnableWebSecurity // 스프링 Security 지원을 가능하게 함
 @EnableGlobalMethodSecurity(securedEnabled = true) // @Secured 어노테이션 활성화
@@ -39,8 +42,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/css/**").permitAll()
 // 회원 관리 처리 API 전부를 login 없이 허용
                 .antMatchers("/user/**").permitAll()
+<<<<<<< HEAD
 // 메인페이지 login 없이 허용
                 .antMatchers("/**").permitAll()
+=======
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
 // 그 외 어떤 요청이든 '인증'
                 .anyRequest().authenticated()
                 .and()

@@ -21,16 +21,24 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+<<<<<<< HEAD
     implementation 'org.springframework.boot:spring-boot-starter-security'
     compileOnly 'org.projectlombok:lombok'
+=======
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	compileOnly 'org.projectlombok:lombok'
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+<<<<<<< HEAD
 	// 스프링 시큐리티
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+=======
+>>>>>>> 0e6e710f42049645993787da98cdb7a64df07ecb
 	// Thymeleaf (뷰 템플릿 엔진)
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 }
