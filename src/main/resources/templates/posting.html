@@ -333,6 +333,98 @@
             function addpost() {
                 $(`#addposts`).show();
             }
+        // 메모를 생성합니다.
+        function writePost() {
+            // 1. 작성한 메모를 불러옵니다.
+            let contents = $('#contents').val();
+            // 2. 작성한 메모가 올바른지 isValidContents 함수를 통해 확인합니다.
+            if (isValidContents(contents) == false) {
+                return;
+            }
+            // 4. 전달할 data JSON으로 만듭니다.
+            let data = {
+                'contents': contents,
+            };
+            // 5. POST /api/memos 에 data를 전달합니다.
+            $.ajax({
+                type: "POST",
+                url: "/api/contents",
+                contentType: "application/json", // JSON 형식으로 전달함을 알리기
+                data: JSON.stringify(data),
+                success: function (response) {
+                    alert('메시지가 성공적으로 작성되었습니다.');
+                    window.location.reload();
+                }
+            });
+        }
+        function getMessages() {
+            // 1. 기존 메모 내용을 지웁니다.
+            $('#cards-box').empty();
+            // 2. 메모 목록을 불러와서 HTML로 붙입니다.
+            $.ajax({
+                type: 'GET',
+                url: '/api/posting/{id}',
+                success: function (response) {
+                    console.log(response);
+                    for (let i = 0; i < response.length; i++) {
+                        let memo = response[i];
+                        let contents = memo.contents;
+
+                        addHTML(id, name, contents, title, modifiedAt)
+                    }
+                }
+            })
+        }
+
+        // 메모 하나를 HTML로 만들어서 body 태그 내 원하는 곳에 붙입니다.
+        function addHTML(id, name, contents, title, modifiedAt) {
+            // 1. HTML 태그를 만듭니다.
+            let tempHtml = `<div>
+                                <div class="card" style="width: 18rem;">
+                                    <div class="card-body">
+                                        <h3 class="card-title">${title}</h3>
+                                        <h7 id="${id}-name" class="card-title">${name}</h7>
+                                        <p class="card-text">${modifiedAt}</p>
+<!--                                        <a href="/user/login" type="button" class="btn btn-outline-success">로그인</a>-->
+                                        <a id="${id}-show" href="/posting/${id}" class="btn btn-primary">내용보기</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div id="${id}-cards" class="cards">
+                                <!-- date/username 영역 -->
+                                <div><h2>${title}</h2></div>
+                                <div class="date">
+                                        ${modifiedAt}
+                                    </div>
+                                    <div id="${id}-name" class="name">
+                                        ${name}
+                                    </div>
+                                <div class="metadata">
+                                </div>
+
+                                <div class="contents">
+                                    <div id="${id}-contents" class="text">
+                                        ${contents}
+                                    </div>
+                                    <!-- contents 조회/수정 영역-->
+                                    <div id="${id}-editarea" class="edit">
+                                        <textarea id="${id}-textarea" class="te-edit" name="" id="" cols="30" rows="5"></textarea>
+                                          비밀번호:<input id="${id}-password"></inputid>
+                                    </div>
+                                </div>
+                                <!-- 버튼 영역-->
+                                <div class="footer">
+                                    <button id="${id}-back" onclick="backPost('${id}')" class="icon-back-edit" >닫기</button>
+                                    <img id="${id}-edit" onclick="editPost('${id}')" class="icon-start-edit" src="images/edit.png" alt="">
+                                    <img id="${id}-delete" onclick="deleteOne('${id}')" class="icon-delete" src="images/delete.png" alt="">
+                                    <img id="${id}-submit" onclick="submitEdit('${id}')" class="icon-end-edit" src="images/done.png" alt="">
+                                </div>
+                            </div>
+                            `
+            // 2. #cards-box 에 HTML을 붙인다.
+            $('#cards-box').append(tempHtml);
+        }
     </script>
 </head>
 
@@ -388,7 +480,7 @@
             <div class="area-write">
                 <textarea class="field" placeholder="댓글을 남겨주세요" name="contents"  cols="30"
                           rows="10"></textarea>
-                <button type="button" class="btn btn-outline-dark">작성완료</button>
+                <button onclick="writePost()" type="button" class="btn btn-outline-dark">작성완료</button>
             </div>
         </div>
     </div>

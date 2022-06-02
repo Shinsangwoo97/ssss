@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 
 @Controller
-public class UserController {
+public class IndexController {
 
     private final UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public IndexController(UserService userService) {
 
         this.userService = userService;
     }

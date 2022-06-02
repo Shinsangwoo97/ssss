@@ -3,28 +3,25 @@ package com.aparta.homework3.security;
 
 
 import com.aparta.homework3.domain.User;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
 
+import java.util.Collection;
+import java.util.Collections;
+
+
+@Getter
+@RequiredArgsConstructor
 public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
-    public UserDetailsImpl(User user) {
-        this.user = user;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
